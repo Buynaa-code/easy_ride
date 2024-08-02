@@ -1,6 +1,7 @@
 import 'package:easy_ride/const/colors.dart';
+import 'package:easy_ride/const/spacing.dart';
+import 'package:easy_ride/const/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TaxiList extends StatefulWidget {
@@ -14,42 +15,50 @@ class _TaxiListState extends State<TaxiList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: dangerColor3,
-        elevation: 0,
-        title: Row(
-          children: [
-            const Text('Надтай ойр унааны жагсаалт'),
-            SvgPicture.asset(
-              'assets/images/appbar_car.svg',
-              height: 24.0,
-            ),
-            SizedBox(width: 8.0),
-          ],
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: dangerColor3,
+      //   elevation: 0,
+      //   title: Row(
+      //     children: [
+      //       const Text('Надтай ойр унааны жагсаалт'),
+      //       SvgPicture.asset(
+      //         'assets/images/appbar_car.svg',
+      //         height: 24.0,
+      //       ),
+      //       w8(),
+      //     ],
+      //   ),
+      // ),
       backgroundColor: whiteColor,
       body: SafeArea(
         child: Stack(
           children: [
-            LayoutBuilder(
-              builder: (context, constraints) {
-                double width = constraints.maxWidth;
-                double height = constraints.maxHeight;
+            SizedBox(
+              width: screenWidth(context),
+              height: screenHeight(context),
+              child: SizedBox(
+                width: screenWidth(context),
+                height: screenHeight(context) * 0.6,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    double width = constraints.maxWidth;
+                    double height = constraints.maxHeight;
 
-                return ListView.builder(
-                  padding: EdgeInsets.all(width * 0.05),
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        CarCard(width: width, height: height),
-                        SizedBox(height: height * 0.02),
-                      ],
+                    return ListView.builder(
+                      padding: EdgeInsets.all(width * 0.05),
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            CarCard(width: width, height: height),
+                            SizedBox(height: height * 0.02),
+                          ],
+                        );
+                      },
                     );
                   },
-                );
-              },
+                ),
+              ),
             ),
           ],
         ),
@@ -100,7 +109,7 @@ class CarCard extends StatelessWidget {
           SizedBox(height: height * 0.02),
           _buildLocationRow(),
           SizedBox(height: height * 0.02),
-          _buildCallButton(),
+          _buildCallButton(width, height, informationColor7),
         ],
       ),
     );
@@ -109,9 +118,8 @@ class CarCard extends StatelessWidget {
   Row _buildCarDetailsRow() {
     return Row(
       children: [
-        SvgPicture.asset(
-          'assets/images/list_car.svg',
-          width: width * 0.5,
+        Image.asset(
+          'assets/images/model3.png',
           height: height * 0.1,
         ),
         SizedBox(width: width * 0.03),
@@ -144,7 +152,7 @@ class CarCard extends StatelessWidget {
             SizedBox(height: height * 0.005),
             const Text(
               'Toyota, Цагаан өнгө, Prius 20',
-              style: TextStyle(color: greyColor4),
+              style: TextStyle(color: greyColor5),
             ),
           ],
         ),
@@ -152,30 +160,47 @@ class CarCard extends StatelessWidget {
     );
   }
 
-  Row _buildLocationRow() {
-    return Row(
-      children: [
-        const Icon(Icons.location_on, color: greyColor6),
-        SizedBox(width: width * 0.01),
-        const Text('Таны байгаа байршилаас',
-            style: TextStyle(color: Colors.grey)),
-        const Spacer(),
-        const Text('800m', style: TextStyle(fontWeight: FontWeight.bold)),
-      ],
+  Container _buildLocationRow() {
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: greyColor3, // Adjust the color as needed
+            width: 1.0, // Width of the border
+          ),
+        ),
+      ),
+      child: const Padding(
+        padding: EdgeInsets.only(top: 8),
+        child: Row(
+          children: [
+            Icon(Icons.location_on, color: greyColor6),
+            Text('Таны байгаа байршилаас',
+                style: TextStyle(color: Colors.grey)),
+            Spacer(),
+            Text('800m', style: TextStyle(fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
     );
   }
 
-  ElevatedButton _buildCallButton() {
+  ElevatedButton _buildCallButton(
+      double width, double height, Color informationColor7) {
     return ElevatedButton.icon(
       onPressed: _makePhoneCall,
       icon: const Icon(Icons.call),
-      label: const Text('Утасаар ярих'),
+      label: Text(
+        'Утасаар ярих',
+        style: ktsBodyMediumBold,
+      ),
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(width, height * 0.08),
-        foregroundColor: Colors.white,
+        minimumSize: Size(width, height * 0.06),
+        foregroundColor: whiteColor, // Text color
         backgroundColor: informationColor6,
+        // Background color with 10% opacity
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
     );

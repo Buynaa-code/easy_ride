@@ -27,5 +27,6 @@ flutter:
 
   assets:
     - assets/images/logo.svg
-    - assets/images/list_car.svg
+    - assets/images/model3.svg
+    - assets/images/model3.png
     - assets/images/appbar_car.svg

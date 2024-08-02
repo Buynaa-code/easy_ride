@@ -54,6 +54,7 @@ TextStyle get ktsBodyMedium => GoogleFonts.montserrat(
     );
 TextStyle get ktsBodyMediumBold => GoogleFonts.montserrat(
       fontSize: 16,
+      fontWeight: FontWeight.w600,
     );
 
 TextStyle get ktsBodyRegularBold => GoogleFonts.montserrat(
